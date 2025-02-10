@@ -1,3 +1,4 @@
+using System;
 using Ambev.DeveloperEvaluation.Application;
 using Ambev.DeveloperEvaluation.Common.HealthChecks;
 using Ambev.DeveloperEvaluation.Common.Logging;
@@ -53,6 +54,25 @@ public class Program
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             var app = builder.Build();
+
+            Log.Information("Aplicando Migrações");
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                try
+                {
+                    Task.Delay(TimeSpan.FromSeconds(40));
+                    var context = services.GetRequiredService<DefaultContext>();
+
+                    context.Database.Migrate();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Erro ao aplicar migrações.");
+                }
+            }
+
             app.UseMiddleware<ValidationExceptionMiddleware>();
 
             if (app.Environment.IsDevelopment())
