@@ -1,11 +1,8 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Product.CreateProduct;
-using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Product.CreateProduct;
-using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Product;
@@ -26,7 +23,7 @@ public class ProductController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(ApiResponseWithData<CreateProductResponse>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateSale([FromBody] CreateProductRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateProduc([FromBody] CreateProductRequest request, CancellationToken cancellationToken)
     {
         var validator = new CreateProductValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
