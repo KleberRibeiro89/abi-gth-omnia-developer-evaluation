@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ambev.DeveloperEvaluation.Domain.Services;
+namespace Ambev.DeveloperEvaluation.Application.Product.CreateProduct;
 
-public interface ISaleService
+public class CreateProductResult
 {
-    ValueTask<Guid> CreateSale();
 }
