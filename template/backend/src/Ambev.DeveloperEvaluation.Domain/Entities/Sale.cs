@@ -1,19 +1,37 @@
-﻿using Ambev.DeveloperEvaluation.Common.Security;
-using Ambev.DeveloperEvaluation.Domain.Common;
+﻿using Ambev.DeveloperEvaluation.Domain.Common;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
 public class Sale : BaseEntity
 {
-    public string Id { get; set; } = string.Empty;
+    public int SaleNumber { get; init; }
 
-    public int SaleNumber { get; set; }
+    /// <summary>
+    /// Date when the sale was made
+    /// </summary>
+    public DateTime DateSaleMade { get; set; }
 
-    public string Customer { get; set; } = string.Empty;
+    public virtual Customer Customer{ get; set; } 
 
     public decimal TotalSaleAmount { get; set; }
 
+    /// <summary>
+    /// Branch where the sale was made
+    /// </summary>
     public string BranchSaleMade { get; set; } = string.Empty;
 
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+    public virtual ICollection<SaleItem> Sales { get; set; } = new List<SaleItem>();
+
+
+    public decimal Discounts { get; set; }
+
+    /// <summary>
+    /// Total amount for each item
+    /// </summary>
+    public decimal TotalAmountItem { get; set; }
+
+    /// <summary>
+    /// Cancelled/Not Cancelled
+    /// </summary>
+    public bool Cancelled { get; set; }
 }
