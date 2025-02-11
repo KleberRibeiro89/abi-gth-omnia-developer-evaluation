@@ -62,7 +62,6 @@ public class Program
 
                 try
                 {
-                    Task.Delay(TimeSpan.FromSeconds(40));
                     var context = services.GetRequiredService<DefaultContext>();
 
                     context.Database.Migrate();
