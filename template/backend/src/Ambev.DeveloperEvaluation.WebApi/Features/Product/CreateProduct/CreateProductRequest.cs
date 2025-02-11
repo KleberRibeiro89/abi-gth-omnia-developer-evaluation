@@ -1,5 +1,7 @@
 ﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Product.CreateProduct;
 
-public class CreateProductRequest
+public record CreateProductRequest
 {
+    public string Description { get; set; } = string.Empty;
+    public decimal Price { get; set; }
 }

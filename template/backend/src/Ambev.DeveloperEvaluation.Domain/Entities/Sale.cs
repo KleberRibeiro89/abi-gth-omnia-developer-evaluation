@@ -11,7 +11,9 @@ public class Sale : BaseEntity
     /// </summary>
     public DateTime DateSaleMade { get; set; }
 
-    public virtual Customer Customer{ get; set; } 
+    public Guid CustomerId { get; set; }
+
+    public virtual Customer Customer { get; set; }
 
     public decimal TotalSaleAmount { get; set; }
 
