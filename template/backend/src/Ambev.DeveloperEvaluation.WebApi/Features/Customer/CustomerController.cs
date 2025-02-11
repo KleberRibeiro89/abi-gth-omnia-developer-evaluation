@@ -1,6 +1,8 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Customer.CreateCustomer;
+using Ambev.DeveloperEvaluation.Application.Customer.ListCustomer;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Customer.CreateCustomer;
+using Ambev.DeveloperEvaluation.WebApi.Features.Customer.ListCustomer;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +41,28 @@ public class CustomerController : BaseController
             Success = true,
             Message = "Customer created successfully",
             Data = _mapper.Map<CreateCustomerResponse>(response)
+        });
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(ApiResponseWithData<PaginatedList<ListCustomerResponse>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> ListCustomer(
+        [FromQuery] int _page = 1,
+        [FromQuery] int _size = 10,
+        [FromQuery] string? _order = null)
+    {
+
+
+        var ListProductResult = await _mediator.Send(new ListCustomerCommand());
+        var response = _mapper.Map<List<ListCustomerResponse>>(ListProductResult);
+
+        return Ok(new ApiResponseWithData<PaginatedList<ListCustomerResponse>>
+        {
+            Success = true,
+            Message = "",
+            Data = new PaginatedList<ListCustomerResponse>(response, response.Count, _page, _size)
         });
     }
 }
