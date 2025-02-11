@@ -1,6 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Product.CreateProduct;
 using Ambev.DeveloperEvaluation.Application.Product.ListProduct;
 using Ambev.DeveloperEvaluation.WebApi.Common;
+using Ambev.DeveloperEvaluation.WebApi.Features.Customer.ListCustomer;
 using Ambev.DeveloperEvaluation.WebApi.Features.Product.CreateProduct;
 using Ambev.DeveloperEvaluation.WebApi.Features.Product.ListProducts;
 using AutoMapper;
@@ -45,7 +46,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(ApiResponseWithData<PaginatedList<ListProductsResponse>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponseWithData<List<ListProductsResponse>>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> ListProducts(
