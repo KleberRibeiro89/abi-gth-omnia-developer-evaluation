@@ -13,6 +13,8 @@ public class SaleRepository : ISaleRepository
 
     public async Task<Sale> CreateAsync(Sale entity, CancellationToken cancellationToken = default)
     {
+        entity.DateSaleMade = DateTime.UtcNow;
+
         await _context.Sales.AddAsync(entity, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
 

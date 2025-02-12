@@ -1,9 +1,11 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Common;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Ambev.DeveloperEvaluation.Domain.Common;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
 public class Sale : BaseEntity
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int SaleNumber { get; init; }
 
     /// <summary>
@@ -22,7 +24,7 @@ public class Sale : BaseEntity
     /// </summary>
     public string BranchSaleMade { get; set; } = string.Empty;
 
-    public virtual ICollection<SaleItem> Sales { get; set; } = new List<SaleItem>();
+    public virtual ICollection<SaleItem> SaleItems { get; set; } = new List<SaleItem>();
 
 
     public decimal Discounts { get; set; }
