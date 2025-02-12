@@ -9,7 +9,8 @@ public class AlterSaleProfile : Profile
     {
 
         CreateMap<AlterSaleCommand.AlterSaleItemCommand, SaleItem>()
-            .ForMember(dest=>dest.Amount, opt=>opt.MapFrom(s=>s.Quantities));
+            .ForMember(dest => dest.Amount, opt => opt.MapFrom(s => s.Quantities))
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(s => s.SaleItemId));
 
         CreateMap<AlterSaleCommand, Sale>()
             .ForMember(dest => dest.SaleItems, opt => opt.MapFrom(s => s.Items));

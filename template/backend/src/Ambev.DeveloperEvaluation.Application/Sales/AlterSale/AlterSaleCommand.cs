@@ -2,7 +2,7 @@
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.AlterSale;
 
-public class AlterSaleCommand : IRequest<AlterSaleResult>
+public class AlterSaleCommand : IRequest
 {
     public Guid Id { get; set; }
     public int SaleNumber { get; set; }

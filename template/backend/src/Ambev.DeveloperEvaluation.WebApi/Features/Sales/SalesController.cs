@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.AlterSale;
+using Ambev.DeveloperEvaluation.Application.Sales.CancelSale;
 using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.Application.Sales.GetSale;
 using Ambev.DeveloperEvaluation.WebApi.Common;
@@ -36,13 +37,12 @@ public class SalesController : BaseController
             return BadRequest(validationResult.Errors);
 
         var command = _mapper.Map<CreateSaleCommand>(request);
-        var response = await _mediator.Send(command, cancellationToken);
+        await _mediator.Send(command, cancellationToken);
 
         return Created(string.Empty, new ApiResponseWithData<CreateSaleResponse>
         {
             Success = true,
-            Message = "Sale created successfully",
-            Data = _mapper.Map<CreateSaleResponse>(response)
+            Message = "Sale created successfully"
         });
     }
 
@@ -59,13 +59,12 @@ public class SalesController : BaseController
             return BadRequest(validationResult.Errors);
 
         var command = _mapper.Map<AlterSaleCommand>(request);
-        var response = await _mediator.Send(command, cancellationToken);
+        await _mediator.Send(command, cancellationToken);
 
         return Ok(new ApiResponseWithData<AlterSaleResponse>
         {
             Success = true,
-            Message = "Sale altered successfully",
-            Data = _mapper.Map<AlterSaleResponse>(response)
+            Message = "Sale altered successfully"
         });
     }
 
@@ -85,7 +84,22 @@ public class SalesController : BaseController
             Message = "Sale retrieved successfully",
             Data = _mapper.Map<GetSaleResponse>(response)
         });
+    }
 
+
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> CancelSale(Guid id)
+    {
+        await _mediator.Send(new CancelSaleCommand(id));
+
+
+        return Ok(new ApiResponseWithData<GetSaleResponse>
+        {
+            Success = true,
+            Message = "Sale Canceled successfully",
+        });
     }
 
 }

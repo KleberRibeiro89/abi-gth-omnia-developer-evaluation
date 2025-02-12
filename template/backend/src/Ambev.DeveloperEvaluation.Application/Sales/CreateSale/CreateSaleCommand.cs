@@ -2,7 +2,7 @@
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 
-public class CreateSaleCommand : IRequest<CreateSaleResult>
+public class CreateSaleCommand : IRequest
 {
     public Guid CustomerID { get; set; }
 

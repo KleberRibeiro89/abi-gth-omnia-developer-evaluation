@@ -33,10 +33,26 @@ public class SaleRepository : ISaleRepository
 
     public async Task<Sale> UpdateAsync(Sale entity, CancellationToken cancellationToken = default)
     {
-
         _context.Sales.Update(entity);
         await _context.SaveChangesAsync(cancellationToken);
 
+
+        _context.SaleItems.UpdateRange(entity.SaleItems);
+        await _context.SaveChangesAsync(cancellationToken);
+
+
+
         return entity;
+    }
+
+    public async Task CancelAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var sale = await _context
+                        .Sales
+                        .FirstAsync(s => s.Id == id, cancellationToken);
+
+        sale.Cancelled = true;
+        _context.Sales.Update(sale);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }

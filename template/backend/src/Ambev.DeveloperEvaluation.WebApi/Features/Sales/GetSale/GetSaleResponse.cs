@@ -11,6 +11,8 @@ public record GetSaleResponse
 
     public List<GetSaleItemResponse> Items { get; set; } = new();
 
+    public bool Cancelled { get; set; }
+
 
     public record GetSaleItemResponse
     {

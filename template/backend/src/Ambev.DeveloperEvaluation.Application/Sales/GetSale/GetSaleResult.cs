@@ -10,6 +10,7 @@ public record GetSaleResult
     public string BranchSaleMade { get; set; } = string.Empty;
 
     public List<GetSaleItemResult> Items { get; set; } = new();
+    public bool Cancelled { get; set; }
 
 
     public record GetSaleItemResult
