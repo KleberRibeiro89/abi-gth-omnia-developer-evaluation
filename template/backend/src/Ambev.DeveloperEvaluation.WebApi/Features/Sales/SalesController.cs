@@ -1,5 +1,6 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.WebApi.Common;
+using Ambev.DeveloperEvaluation.WebApi.Features.Sales.AlterSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 using AutoMapper;
 using MediatR;
@@ -41,4 +42,15 @@ public class SalesController : BaseController
             Data = _mapper.Map<CreateSaleResponse>(response)
         });
     }
+
+
+    [HttpPut]
+    [ProducesResponseType(typeof(ApiResponseWithData<CreateSaleResponse>), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateSale([FromBody] AlterSaleRequest request, CancellationToken cancellationToken)
+    { 
+    
+
+    }
+
 }

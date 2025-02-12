@@ -10,15 +10,10 @@ public class CreateSaleCommand : IRequest<CreateSaleResult>
 
     public List<CreateSaleItemCommand> Items { get; set; } = new();
 
-    public decimal Quantities { get; set; }
-
-    public decimal Discounts { get; set; }
-
-
     public record CreateSaleItemCommand
     {
         public Guid ProductId { get; set; }
-        public decimal Quantities { get; set; }
+        public decimal Amount { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal TotalValue { get; set; }
     }

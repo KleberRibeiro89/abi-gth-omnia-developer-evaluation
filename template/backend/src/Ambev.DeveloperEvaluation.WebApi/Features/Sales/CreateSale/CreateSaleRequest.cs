@@ -6,13 +6,17 @@ public record CreateSaleRequest
 
     public string BranchSaleMade { get; set; } = string.Empty;
 
-    public List<CreateSaleItemCommand> Items { get; set; } = new();
+    public List<CreateSaleItemRequest> Items { get; set; } = new();
 
-    public record CreateSaleItemCommand
+    public decimal Quantities { get; set; }
+
+    public decimal Discounts { get; set; }
+
+
+    public record CreateSaleItemRequest
     {
         public Guid ProductId { get; set; }
         public decimal Quantities { get; set; }
         public decimal UnitPrice { get; set; }
-        public decimal TotalValue { get; set; }
     }
 }

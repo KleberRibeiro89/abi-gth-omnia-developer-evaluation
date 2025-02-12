@@ -43,7 +43,7 @@ public class SaleService : ISaleService
         foreach (var item in sale.SaleItems)
         {
             item.TotalValueItem = item.Amount * item.UnitPrice;
-            item.TotalValueItem = item.TotalValueItem * -item.DiscountsApplied;
+            item.TotalValueItem = item.TotalValueItem - (item.TotalValueItem * item.DiscountsApplied);
         }
 
         sale.Discounts = sale.SaleItems.Sum(item=> item.DiscountsApplied);
@@ -53,6 +53,9 @@ public class SaleService : ISaleService
 
     public void CalcDiscounts(SaleItem item)
     {
+        if (item.Amount == 0)
+            throw new DomainException("Amount is 0");
+
         if (item.Amount > 20)
             throw new DomainException("no more than 20 of the same item may be sold");
 
