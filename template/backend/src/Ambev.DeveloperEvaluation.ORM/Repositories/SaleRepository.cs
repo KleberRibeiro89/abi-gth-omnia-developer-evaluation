@@ -1,5 +1,6 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories;
 
@@ -11,11 +12,29 @@ public class SaleRepository : ISaleRepository
         _context = context;
     }
 
+    public Task<Sale> GetAsync(Guid id, CancellationToken cancellationToken)
+    {
+        return _context
+                .Sales
+                .Include(s=>s.SaleItems)
+                .FirstAsync(s => s.Id == id, cancellationToken);
+    }
+
     public async Task<Sale> CreateAsync(Sale entity, CancellationToken cancellationToken = default)
     {
         entity.DateSaleMade = DateTime.UtcNow;
 
         await _context.Sales.AddAsync(entity, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
+
+        return entity;
+    }
+
+
+    public async Task<Sale> UpdateAsync(Sale entity, CancellationToken cancellationToken = default)
+    {
+
+        _context.Sales.Update(entity);
         await _context.SaveChangesAsync(cancellationToken);
 
         return entity;

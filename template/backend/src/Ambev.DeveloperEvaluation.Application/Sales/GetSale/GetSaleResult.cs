@@ -1,6 +1,6 @@
-﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.AlterSale;
+﻿namespace Ambev.DeveloperEvaluation.Application.Sales.GetSale;
 
-public class AlterSaleRequest
+public record GetSaleResult
 {
     public Guid Id { get; set; }
     public int SaleNumber { get; set; }
@@ -9,10 +9,10 @@ public class AlterSaleRequest
 
     public string BranchSaleMade { get; set; } = string.Empty;
 
-    public List<AlterSaleItemRequest> Items { get; set; } = new();
+    public List<GetSaleItemResult> Items { get; set; } = new();
 
 
-    public record AlterSaleItemRequest
+    public record GetSaleItemResult
     {
         public Guid? SaleItemId { get; set; }
         public Guid ProductId { get; set; }

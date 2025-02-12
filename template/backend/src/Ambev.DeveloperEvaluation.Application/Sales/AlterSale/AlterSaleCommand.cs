@@ -1,6 +1,8 @@
-﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.AlterSale;
+﻿using MediatR;
 
-public class AlterSaleRequest
+namespace Ambev.DeveloperEvaluation.Application.Sales.AlterSale;
+
+public class AlterSaleCommand : IRequest<AlterSaleResult>
 {
     public Guid Id { get; set; }
     public int SaleNumber { get; set; }
@@ -9,10 +11,10 @@ public class AlterSaleRequest
 
     public string BranchSaleMade { get; set; } = string.Empty;
 
-    public List<AlterSaleItemRequest> Items { get; set; } = new();
+    public List<AlterSaleItemCommand> Items { get; set; } = new();
 
 
-    public record AlterSaleItemRequest
+    public record AlterSaleItemCommand
     {
         public Guid? SaleItemId { get; set; }
         public Guid ProductId { get; set; }

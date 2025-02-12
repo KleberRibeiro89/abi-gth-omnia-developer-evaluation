@@ -16,7 +16,7 @@ public class SaleService : ISaleService
 
     public async ValueTask<Guid> CreateSaleAsync(Sale sale, CancellationToken cancellationToken = default)
     {
-
+        
         var productIds = sale.SaleItems.Select(s => s.ProductId).ToList();
 
         var prices = await _productRepository.GetPricesAsync(productIds, cancellationToken);
@@ -67,5 +67,28 @@ public class SaleService : ISaleService
 
         if (item.Amount >= 10 && item.Amount <= 20)
             item.DiscountsApplied = 0.2M;
+    }
+
+    public async Task AlterSaleAsync(Sale sale, CancellationToken cancellationToken)
+    {
+        var productIds = sale.SaleItems.Select(s => s.ProductId).ToList();
+
+        var prices = await _productRepository.GetPricesAsync(productIds, cancellationToken);
+
+        foreach (var item in sale.SaleItems)
+        {
+
+            var dbPrince = prices.FirstOrDefault(x => x.Key == item.ProductId).Value;
+            if (item.UnitPrice != dbPrince)
+                throw new DomainException("the unit price entered is different from the price of the product");
+
+            CalcDiscounts(item);
+        }
+
+        CalcTotalSale(sale);
+
+        var result = await _saleRepository.UpdateAsync(sale, cancellationToken);
+
+
     }
 }
