@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 
-public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleResult>
+public class CreateSaleHandler : IRequestHandler<CreateSaleCommand>
 {
     private readonly IMapper _mapper;
     private readonly ISaleService _service;
@@ -16,7 +16,7 @@ public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleRe
         _mapper = mapper;
     }
 
-    public async Task<CreateSaleResult> Handle(CreateSaleCommand request, CancellationToken cancellationToken)
+    public async Task Handle(CreateSaleCommand request, CancellationToken cancellationToken)
     {
         var validator = new CreateSaleCommandValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
@@ -27,10 +27,5 @@ public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleRe
         var sale = _mapper.Map<Sale>(request);
 
         var idSale = await _service.CreateSaleAsync(sale);
-
-        return new CreateSaleResult
-        {
-            Id = idSale
-        };
     }
 }
