@@ -18,7 +18,7 @@ public class CreateSaleCommandValidator : AbstractValidator<CreateSaleCommand>
 
         RuleFor(s => s.Items)
             .NotEmpty()
-            .WithMessage("item is required");
+            .WithMessage("items is required");
 
     }
 }
