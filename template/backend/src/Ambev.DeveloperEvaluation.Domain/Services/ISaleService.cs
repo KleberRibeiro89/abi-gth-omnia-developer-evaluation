@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 
 namespace Ambev.DeveloperEvaluation.Domain.Services;
 
 public interface ISaleService
 {
-    ValueTask<Guid> CreateSale();
+    ValueTask<Guid> CreateSaleAsync(Sale sale, CancellationToken cancellationToken = default);
 }

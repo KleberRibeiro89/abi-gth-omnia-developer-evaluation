@@ -26,4 +26,12 @@ public class ProductRepository : IProductRepository
                         .Products
                         .ToListAsync(cancellationToken);
     }
+
+    public async Task<Dictionary<Guid, decimal>> GetPricesAsync(List<Guid> ids, CancellationToken cancellationToken = default)
+    {
+        return await _context
+                        .Products
+                        .Where(p => ids.Contains(p.Id))
+                        .ToDictionaryAsync(p => p.Id, p => p.Price, cancellationToken);
+    }
 }
